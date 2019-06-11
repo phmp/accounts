@@ -24,8 +24,12 @@ public class Account {
         return amount;
     }
 
-    @Override
-    public String toString() {
-        return "{ " + id + " : " + amount + "$ }";
+    public void addAmount(BigInteger value) {
+        amount = amount.add(value);
     }
+
+    public void subtractAmount(BigInteger value) {
+        amount = amount.subtract(value);
+    }
+
 }
