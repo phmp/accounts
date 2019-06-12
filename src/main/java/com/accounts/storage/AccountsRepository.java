@@ -4,36 +4,34 @@ import com.accounts.model.Account;
 import com.accounts.transfer.TransferFailureException;
 
 import java.math.BigInteger;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AccountsRepository {
 
-    private List<Account> accounts = new LinkedList<>();
+    private Map<String, Account> accounts = new ConcurrentHashMap<>();
 
     public AccountsRepository() {
     }
 
-    public List<Account> getAccounts() {
-        return accounts;
+    public Collection<Account> getAccounts() {
+        return accounts.values();
     }
 
     public Account getAccount(String id) {
-        Optional<Account> optional = accounts.stream()
-                .filter(account -> account.getId().equals(id))
-                .findFirst();
-        if (optional.isPresent()) {
-            return optional.get();
+        Account account = accounts.get(id);
+        if (account == null) {
+            throw new AccountRepositoryException("Account " + id + " does not exist.");
+        } else {
+            return account;
         }
-        throw new TransferFailureException("Account " + id + " does not exist.");
     }
 
     public void addAccount(String id, BigInteger amount) {
-        if (accounts.stream().anyMatch(account -> account.getId().equals(id))){
-            throw new TransferFailureException("Account " + id + " already exists.");
+        Account old = accounts.putIfAbsent(id, new Account(id, amount));
+        if (old != null) {
+            throw new AccountRepositoryException("Account " + id + " already exists.");
         }
-        accounts.add(new Account(id, amount));
     }
 
     public void addAccount(String id) {

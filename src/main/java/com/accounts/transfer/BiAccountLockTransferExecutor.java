@@ -26,7 +26,7 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
                 taker.addAmount(amount);
             }
         }
-        log.info("from: " + giver.getId() + " to: " + taker.getId() + " money to transfer; " + amount + " SUCCESS");
+        log.info("from: " + giver + " to: " + taker + " money to transfer; " + amount + " SUCCESS");
     }
 
     //sorting accounts by ID to prevent dead lock
@@ -34,6 +34,9 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
         TreeSet<Account> accounts = new TreeSet<>(new ByIdAccountsComparator());
         accounts.add(giver);
         accounts.add(taker);
+        if (accounts.size() != 2){
+            throw new TransferFailureException("Self transactions are not allowed");
+        }
         return accounts;
     }
 

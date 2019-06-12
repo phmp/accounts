@@ -32,4 +32,8 @@ public class Account {
         amount = amount.subtract(value);
     }
 
+    @Override
+    public String toString() {
+        return "{'" + id + "': " + amount + "$}";
+    }
 }

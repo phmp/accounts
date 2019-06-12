@@ -1,6 +1,8 @@
 package com.accounts.controllers;
 
 import com.accounts.model.ErrorResponse;
+import com.accounts.model.TransferResponse;
+import com.accounts.storage.AccountRepositoryException;
 import com.accounts.storage.AccountsRepository;
 import com.accounts.transfer.TransferFailureException;
 import com.accounts.model.Account;
@@ -11,6 +13,7 @@ import spark.Request;
 import spark.Response;
 
 import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 
 import static spark.Spark.exception;
@@ -37,8 +40,11 @@ public class RestController {
             get("/:id/new/:amount", this::createAccountWithInitValueRoute, gson::toJson);
             get("/:from/transfer/:to/:amount", this::transferRoute, gson::toJson);
         });
-        exception(TransferFailureException.class, (exception, request, response) -> {
+        exception(AccountRepositoryException.class, (exception, request, response) -> {
             response.body(gson.toJson(new ErrorResponse(exception.getMessage())));
+        });
+        exception(TransferFailureException.class, (exception, request, response) -> {
+            response.body(gson.toJson(TransferResponse.failedTranser(exception.getMessage())));
         });
     }
 
@@ -54,15 +60,15 @@ public class RestController {
         return repository.getAccount(id);
     }
 
-    private List<Account> listAccountRoute(Request req, Response res) {
+    private Collection<Account> listAccountRoute(Request req, Response res) {
         return repository.getAccounts();
     }
 
-    private String transferRoute(Request req, Response res) {
+    private TransferResponse transferRoute(Request req, Response res) {
         String from = req.params(":from");
         String to = req.params(":to");
         String amount = req.params(":amount");
         manager.transfer(from, to , new BigInteger(amount));
-        return repository.getAccounts().toString();
+        return TransferResponse.successedTranser();
     }
 }

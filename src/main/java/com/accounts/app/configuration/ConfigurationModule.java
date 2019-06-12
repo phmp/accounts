@@ -21,13 +21,8 @@ public class ConfigurationModule extends AbstractModule {
 
     @Provides
     @Singleton
-    public AccountsRepository provideRepository() {
-        AccountsRepository accountsRepository = new AccountsRepository();
-        accountsRepository.addAccount("A1", new BigInteger("100"));
-        accountsRepository.addAccount("A2", new BigInteger("100"));
-        accountsRepository.addAccount("A3", new BigInteger("100"));
-        accountsRepository.addAccount("A4", new BigInteger("100"));
-        return accountsRepository;
+    public AccountsRepository createRepository() {
+        return new AccountsRepository();
     }
 
 }
