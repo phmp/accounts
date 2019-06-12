@@ -1,8 +1,8 @@
-package com.accounts.configuration;
+package com.accounts.app.configuration;
 
-import com.accounts.controllers.AccountsRepository;
-import com.accounts.controllers.transfers.BiAccountLockTransferExecutor;
-import com.accounts.controllers.transfers.TransferExecutor;
+import com.accounts.storage.AccountsRepository;
+import com.accounts.transfer.BiAccountLockTransferExecutor;
+import com.accounts.transfer.TransferExecutor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
 import com.google.inject.Singleton;

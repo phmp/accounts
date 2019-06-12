@@ -1,7 +1,7 @@
-package com.accounts.controllers;
+package com.accounts.storage;
 
-import com.accounts.controllers.transfers.TransferFailureException;
 import com.accounts.model.Account;
+import com.accounts.transfer.TransferFailureException;
 
 import java.math.BigInteger;
 import java.util.LinkedList;

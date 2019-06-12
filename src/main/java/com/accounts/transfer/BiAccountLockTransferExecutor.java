@@ -1,4 +1,4 @@
-package com.accounts.controllers.transfers;
+package com.accounts.transfer;
 
 import com.accounts.model.Account;
 import com.google.inject.Inject;
@@ -16,7 +16,7 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
     }
 
     @Override
-    public void transfer(Account giver, Account taker, BigInteger amount) throws TransferFailureException {
+    public void execute(Account giver, Account taker, BigInteger amount) throws TransferFailureException {
         TreeSet<Account> accounts = sortAccountsInLockingOrder(giver, taker);
         log.info("from: " + giver + " to: " + taker + " money to transfer; " + amount);
         synchronized (accounts.pollFirst()){
@@ -26,7 +26,7 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
                 taker.addAmount(amount);
             }
         }
-        log.info("from: " + giver + " to: " + taker + " money to transfer; " + amount + " SUCCESS");
+        log.info("from: " + giver.getId() + " to: " + taker.getId() + " money to transfer; " + amount + " SUCCESS");
     }
 
     //sorting accounts by ID to prevent dead lock

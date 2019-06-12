@@ -1,7 +1,7 @@
 package com.accounts.app;
 
-import com.accounts.configuration.ConfigurationModule;
-import com.accounts.configuration.RestController;
+import com.accounts.app.configuration.ConfigurationModule;
+import com.accounts.controllers.RestController;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 

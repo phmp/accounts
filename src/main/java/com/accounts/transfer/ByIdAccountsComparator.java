@@ -1,4 +1,4 @@
-package com.accounts.controllers.transfers;
+package com.accounts.transfer;
 
 import com.accounts.model.Account;
 

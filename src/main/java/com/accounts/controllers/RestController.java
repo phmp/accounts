@@ -1,10 +1,10 @@
-package com.accounts.configuration;
+package com.accounts.controllers;
 
-import com.accounts.controllers.AccountsRepository;
-import com.accounts.controllers.TransferManager;
-import com.accounts.resopnse.ErrorResponse;
-import com.accounts.controllers.transfers.TransferFailureException;
+import com.accounts.model.ErrorResponse;
+import com.accounts.storage.AccountsRepository;
+import com.accounts.transfer.TransferFailureException;
 import com.accounts.model.Account;
+import com.accounts.transfer.TransferManager;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 import spark.Request;

@@ -1,7 +1,8 @@
-package com.accounts.controllers;
+package com.accounts.transfer;
 
-import com.accounts.controllers.transfers.TransferExecutor;
 import com.accounts.model.Account;
+import com.accounts.storage.AccountsRepository;
+import com.accounts.transfer.TransferExecutor;
 import com.google.inject.Inject;
 
 import java.math.BigInteger;
@@ -20,6 +21,6 @@ public class TransferManager {
     public void transfer(String from, String to, BigInteger amount){
         Account fromAccount = repository.getAccount(from);
         Account toAccount = repository.getAccount(to);
-        executor.transfer(fromAccount, toAccount, amount);
+        executor.execute(fromAccount, toAccount, amount);
     }
 }
