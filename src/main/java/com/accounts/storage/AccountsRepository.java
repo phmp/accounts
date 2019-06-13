@@ -14,11 +14,11 @@ public class AccountsRepository {
     public AccountsRepository() {
     }
 
-    public Collection<Account> getAccounts() {
+    public Collection<Account> getAll() {
         return accounts.values();
     }
 
-    public Account getAccount(String id) {
+    public Account get(String id) {
         Account account = accounts.get(id);
         if (account == null) {
             throw new AccountRepositoryException("Account " + id + " does not exist.");
@@ -27,15 +27,10 @@ public class AccountsRepository {
         }
     }
 
-    public void addAccount(String id, BigInteger amount) {
+    public void add(String id, BigInteger amount) {
         Account old = accounts.putIfAbsent(id, new Account(id, amount));
         if (old != null) {
             throw new AccountRepositoryException("Account " + id + " already exists.");
         }
     }
-
-    public void addAccount(String id) {
-        this.addAccount(id, BigInteger.ZERO);
-    }
-
 }

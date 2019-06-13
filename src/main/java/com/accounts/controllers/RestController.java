@@ -45,24 +45,24 @@ public class RestController {
         });
     }
 
+    private Collection<Account> listAccountRoute(Request req, Response res) {
+        res.type("application/json");
+        return repository.getAll();
+    }
+
     private Account getAccountRoute(Request req, Response res) {
         res.type("application/json");
         String id = req.params(":id");
-        return repository.getAccount(id);
+        return repository.get(id);
     }
 
     private Account createAccountRoute(Request req, Response res) {
         String id = req.params(":id");
         String amount = req.params(":amount");
-        repository.addAccount(id, new BigInteger(amount));
+        repository.add(id, new BigInteger(amount));
         res.status(201);
         res.type("application/json");
-        return repository.getAccount(id);
-    }
-
-    private Collection<Account> listAccountRoute(Request req, Response res) {
-        res.type("application/json");
-        return repository.getAccounts();
+        return repository.get(id);
     }
 
     private TransferResponse transferRoute(Request req, Response res) {

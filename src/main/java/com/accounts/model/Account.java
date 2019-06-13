@@ -12,10 +12,6 @@ public class Account {
         this.amount = amount;
     }
 
-    public Account(String id) {
-        this(id, BigInteger.ZERO);
-    }
-
     public String getId() {
         return id;
     }
