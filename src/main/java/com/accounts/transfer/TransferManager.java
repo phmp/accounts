@@ -1,9 +1,7 @@
 package com.accounts.transfer;
 
 import com.accounts.model.Account;
-import com.accounts.storage.AccountRepositoryException;
 import com.accounts.storage.AccountsRepository;
-import com.accounts.transfer.TransferExecutor;
 import com.google.inject.Inject;
 
 import java.math.BigInteger;

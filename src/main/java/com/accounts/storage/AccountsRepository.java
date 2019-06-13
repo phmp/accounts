@@ -1,10 +1,10 @@
 package com.accounts.storage;
 
 import com.accounts.model.Account;
-import com.accounts.transfer.TransferFailureException;
 
 import java.math.BigInteger;
-import java.util.*;
+import java.util.Collection;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AccountsRepository {

@@ -1,11 +1,11 @@
 package com.accounts.controllers;
 
+import com.accounts.model.Account;
 import com.accounts.model.ErrorResponse;
 import com.accounts.model.TransferResponse;
 import com.accounts.storage.AccountRepositoryException;
 import com.accounts.storage.AccountsRepository;
 import com.accounts.transfer.TransferFailureException;
-import com.accounts.model.Account;
 import com.accounts.transfer.TransferManager;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -15,9 +15,7 @@ import spark.Response;
 import java.math.BigInteger;
 import java.util.Collection;
 
-import static spark.Spark.exception;
-import static spark.Spark.get;
-import static spark.Spark.path;
+import static spark.Spark.*;
 
 public class RestController {
 
