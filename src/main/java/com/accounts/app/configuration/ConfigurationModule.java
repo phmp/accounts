@@ -2,6 +2,7 @@ package com.accounts.app.configuration;
 
 import com.accounts.storage.AccountsRepository;
 import com.accounts.transfer.TransferExecutor;
+import com.accounts.transfer.solutions.one.TwoAccountsBlockingTransferExecutor;
 import com.accounts.transfer.solutions.two.AmountBlockingTransferExecutor;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
@@ -14,7 +15,7 @@ public class ConfigurationModule extends AbstractModule {
 
     @Override
     protected void configure() {
-//        bind(TransferExecutor.class).to(TwoAccountsBlokingTransferExecutor.class);
+//        bind(TransferExecutor.class).to(TwoAccountsBlockingTransferExecutor.class);
         bind(TransferExecutor.class).to(AmountBlockingTransferExecutor.class);
     }
 

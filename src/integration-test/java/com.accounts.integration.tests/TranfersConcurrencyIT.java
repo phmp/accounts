@@ -20,13 +20,13 @@ public class TranfersConcurrencyIT extends AccountsApplicationRunner{
     private final AtomicInteger firstCounter = new AtomicInteger(1);
     private final AtomicInteger secondCounter = new AtomicInteger(2);
 
-    @Test(invocationCount = 150, threadPoolSize = 15)
+    @Test(invocationCount = 300, threadPoolSize = 10)
     public void oneTransfer() {
         int from = this.firstCounter.incrementAndGet()%2;
         int to = this.secondCounter.incrementAndGet()%2;
 
         when()
-                .get("/accounts/{firstCounter}/transfer/{to}/10", from, to)
+                .get("/accounts/{from}/transfer/{to}/10", from, to)
         .then()
                 .statusCode(200)
                 .body("success", equalTo(true));

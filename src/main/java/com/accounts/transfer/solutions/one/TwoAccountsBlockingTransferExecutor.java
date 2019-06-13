@@ -12,12 +12,12 @@ import java.math.BigInteger;
 import java.util.TreeSet;
 
 @Slf4j
-public class TwoAccountsBlokingTransferExecutor implements TransferExecutor {
+public class TwoAccountsBlockingTransferExecutor implements TransferExecutor {
 
     private AccountValidator validator;
 
     @Inject
-    public TwoAccountsBlokingTransferExecutor(AccountValidator validator) {
+    public TwoAccountsBlockingTransferExecutor(AccountValidator validator) {
         this.validator = validator;
     }
 

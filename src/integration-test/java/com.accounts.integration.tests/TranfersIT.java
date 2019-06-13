@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 
 public class TranfersIT extends AccountsApplicationRunner{
 

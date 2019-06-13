@@ -5,8 +5,6 @@ import com.accounts.controllers.RestController;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import static spark.Spark.stop;
-
 public class Application {
 
     Injector injector;
@@ -18,9 +16,5 @@ public class Application {
     public void start() {
         RestController restController = injector.getInstance(RestController.class);
         restController.setupEndpoints();
-    }
-
-    public void stop(){
-        stop();
     }
 }

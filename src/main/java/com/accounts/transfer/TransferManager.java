@@ -2,6 +2,7 @@ package com.accounts.transfer;
 
 import com.accounts.model.Account;
 import com.accounts.storage.AccountsRepository;
+import com.accounts.storage.IncorrectRequstedAccountIdException;
 import com.google.inject.Inject;
 
 import java.math.BigInteger;
@@ -26,7 +27,7 @@ public class TransferManager {
 
     private void preventFromSelfTransaction(String from, String to) {
         if (from.equals(to)) {
-            throw new TransferFailureException("Self-transfers are not allowed");
+            throw new IncorrectRequstedAccountIdException("Self-transfers are not allowed");
         }
     }
 
