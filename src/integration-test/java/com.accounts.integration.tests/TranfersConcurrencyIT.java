@@ -14,7 +14,7 @@ public class TranfersConcurrencyIT extends AccountsApplicationRunner{
     public void createAccount() {
         when().get("/accounts/0/new/1000");
         when().get("/accounts/1/new/1000");
-        additionalCheck();
+        checkAccounts();
     }
 
     private final AtomicInteger firstCounter = new AtomicInteger(1);
@@ -33,15 +33,17 @@ public class TranfersConcurrencyIT extends AccountsApplicationRunner{
     }
 
     @Test(dependsOnMethods = "oneTransfer")
-    public void additionalCheck(){
+    public void checkAccounts(){
+        checkIfAccountIsCorrect("0");
+        checkIfAccountIsCorrect("1");
+    }
+
+    private void checkIfAccountIsCorrect(String id) {
         when()
-                .get("/accounts")
+                .get("/accounts/{id}", id)
         .then()
                 .statusCode(200)
-                .body("[0].id", equalTo("0"))
-                .body("[0].amount", equalTo(1000))
-                .body("[1].id", equalTo("1"))
-                .body("[1].amount", equalTo(1000));
+                .body("amount", equalTo(1000));
     }
 
 }

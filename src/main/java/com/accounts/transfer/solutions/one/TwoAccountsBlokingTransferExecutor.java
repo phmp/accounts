@@ -1,7 +1,10 @@
-package com.accounts.transfer;
+package com.accounts.transfer.solutions.one;
 
 import com.accounts.model.Account;
 import com.accounts.storage.IncorrectRequstedAccountIdException;
+import com.accounts.transfer.AccountValidator;
+import com.accounts.transfer.TransferExecutor;
+import com.accounts.transfer.TransferFailureException;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -9,10 +12,13 @@ import java.math.BigInteger;
 import java.util.TreeSet;
 
 @Slf4j
-public class BiAccountLockTransferExecutor implements TransferExecutor{
+public class TwoAccountsBlokingTransferExecutor implements TransferExecutor {
+
+    private AccountValidator validator;
 
     @Inject
-    public BiAccountLockTransferExecutor() {
+    public TwoAccountsBlokingTransferExecutor(AccountValidator validator) {
+        this.validator = validator;
     }
 
     @Override
@@ -21,7 +27,7 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
         log.info("from: {} to: {} money to transfer: {}, transfer STARTED", giver, taker, amount);
         synchronized (accounts.pollFirst()){
             synchronized (accounts.pollFirst()){
-                checkIfGiverHasEnoughMoney(giver, amount);
+                validator.checkIfGiverHasEnoughMoney(giver, amount);
                 giver.subtractAmount(amount);
                 taker.addAmount(amount);
             }
@@ -40,10 +46,4 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
         return accounts;
     }
 
-    private void checkIfGiverHasEnoughMoney(Account giver, BigInteger amount) throws TransferFailureException {
-        BigInteger giverAmount = giver.getAmount();
-        if (giverAmount.compareTo(amount) < 0){
-            throw new TransferFailureException("Account " + giver.getId() + " has no enough money. It has " + giverAmount + ", but " + amount + " is neeed.");
-        }
-    }
 }

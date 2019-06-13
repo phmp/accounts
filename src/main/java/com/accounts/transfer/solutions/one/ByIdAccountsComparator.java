@@ -1,4 +1,4 @@
-package com.accounts.transfer;
+package com.accounts.transfer.solutions.one;
 
 import com.accounts.model.Account;
 

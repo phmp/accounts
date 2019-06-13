@@ -18,9 +18,16 @@ public class TransferManager {
     }
 
     public void transfer(String from, String to, BigInteger amount) {
+        preventFromSelfTransaction(from, to);
         Account fromAccount = repository.get(from);
         Account toAccount = repository.get(to);
         executor.execute(fromAccount, toAccount, amount);
+    }
+
+    private void preventFromSelfTransaction(String from, String to) {
+        if (from.equals(to)) {
+            throw new TransferFailureException("Self-transfers are not allowed");
+        }
     }
 
 }

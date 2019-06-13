@@ -6,5 +6,5 @@ import java.math.BigInteger;
 
 public interface TransferExecutor {
 
-    void execute(Account from, Account to, BigInteger amount) throws TransferFailureException;
+    void execute(Account giver, Account taker, BigInteger amount) throws TransferFailureException;
 }
