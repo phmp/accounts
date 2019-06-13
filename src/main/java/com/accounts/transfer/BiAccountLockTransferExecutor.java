@@ -1,6 +1,7 @@
 package com.accounts.transfer;
 
 import com.accounts.model.Account;
+import com.accounts.storage.IncorrectRequstedAccountIdException;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,10 +32,10 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
     //sorting accounts by ID to prevent dead lock
     private TreeSet<Account> sortAccountsInLockingOrder(Account giver, Account taker) {
         TreeSet<Account> accounts = new TreeSet<>(new ByIdAccountsComparator());
-        accounts.add(giver);
-        boolean added = accounts.add(taker);
-        if (!added){
-            throw new TransferFailureException("Self transactions are not allowed");
+        boolean added1 = accounts.add(giver);
+        boolean added2 = accounts.add(taker);
+        if (!added1 || !added2){
+            throw new IncorrectRequstedAccountIdException("Self transactions are not allowed");
         }
         return accounts;
     }

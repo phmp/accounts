@@ -1,41 +1,48 @@
 package com.accounts.integration.tests;
 
 
-import com.accounts.app.Application;
-import io.restassured.RestAssured;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
-public class AccountOperationIT {
-
-    @BeforeClass
-    public void startApp() throws InterruptedException {
-        new Application().start();
-        //TODO waiting for app
-        Thread.sleep(1000);
-        RestAssured.baseURI = "http://localhost:4567/";
-    }
-
-    @Test(dependsOnMethods = "createdAccountShouldBeReturned")
-    public void appShouldReturn200forAccountsRequest(){
-        when()
-            .get("/accounts")
-        .then()
-            .statusCode(200)
-            .body("$[0].id", equalTo("A1"))
-        ;
-    }
+public class AccountOperationIT extends AccountsApplicationRunner {
 
     @Test
-    public void createdAccountShouldBeReturned() {
+    public void createAccount() {
         when()
                 .get("/accounts/A1/new/100")
         .then()
                 .statusCode(201)
                 .body("id", equalTo("A1"))
-        ;
+                .body("amount", equalTo(100));
+    }
+
+    @Test(dependsOnMethods = "createAccount")
+    public void getAccounts(){
+        when()
+            .get("/accounts")
+        .then()
+            .statusCode(200)
+            .body("[0].id", equalTo("A1"))
+            .body("[0].amount", equalTo(100));
+    }
+
+    @Test(dependsOnMethods = "createAccount")
+    public void getAccount(){
+        when()
+            .get("/accounts/A1")
+        .then()
+            .statusCode(200)
+            .body("id", equalTo("A1"))
+            .body("amount", equalTo(100));
+    }
+
+    @Test(dependsOnMethods = "createAccount")
+    public void createExistingAccount() {
+        when()
+                .get("/accounts/A1/new/200")
+        .then()
+                .statusCode(400);
     }
 }

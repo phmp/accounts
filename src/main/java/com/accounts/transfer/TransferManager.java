@@ -18,13 +18,9 @@ public class TransferManager {
     }
 
     public void transfer(String from, String to, BigInteger amount) {
-        try {
-            Account fromAccount = repository.get(from);
-            Account toAccount = repository.get(to);
-            executor.execute(fromAccount, toAccount, amount);
-        } catch (Exception e) {
-            throw new TransferFailureException(e);
-        }
+        Account fromAccount = repository.get(from);
+        Account toAccount = repository.get(to);
+        executor.execute(fromAccount, toAccount, amount);
     }
 
 }
