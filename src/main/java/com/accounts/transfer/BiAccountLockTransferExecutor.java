@@ -18,7 +18,7 @@ public class BiAccountLockTransferExecutor implements TransferExecutor{
     @Override
     public void execute(Account giver, Account taker, BigInteger amount) throws TransferFailureException {
         TreeSet<Account> accounts = sortAccountsInLockingOrder(giver, taker);
-        log.info("from: " + giver + " to: " + taker + " money to transfer; " + amount);
+        log.info("from: " + giver + " to: " + taker + " money to transfer; " + amount + " transfer STARTED");
         synchronized (accounts.pollFirst()){
             synchronized (accounts.pollFirst()){
                 checkIfGiverHasEnoughMoney(giver, amount);
