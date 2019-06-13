@@ -13,4 +13,4 @@
 *.tar.gz
 *.rar
 
-*/target/*
+target/*
