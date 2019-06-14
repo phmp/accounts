@@ -1,2 +1,7 @@
 # accounts
-Accounts - simple app with spark-java framework used.
+Accounts - simple app for money transfer.
+Frameworks used:
+spark-java - rest api
+guice - CDI
+restassured - rest api tests (integration)
+testNG - unit and integration tests (also for checking concurrency)
