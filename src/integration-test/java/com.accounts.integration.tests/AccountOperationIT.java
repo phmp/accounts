@@ -1,6 +1,5 @@
 package com.accounts.integration.tests;
 
-
 import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.when;

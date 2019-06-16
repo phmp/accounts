@@ -32,7 +32,7 @@ public class TranfersConcurrencyIT extends AccountsApplicationRunner{
                 .body("success", equalTo(true));
     }
 
-    @Test(dependsOnMethods = "oneTransfer")
+    @Test(dependsOnMethods = "oneTransfer", alwaysRun = true)
     public void checkAccounts(){
         checkIfAccountIsCorrect("0");
         checkIfAccountIsCorrect("1");

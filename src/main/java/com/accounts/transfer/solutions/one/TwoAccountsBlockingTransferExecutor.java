@@ -35,7 +35,7 @@ public class TwoAccountsBlockingTransferExecutor implements TransferExecutor {
         log.info("from: {} to: {} money to transfer: {}, transfer SUCCESS", giver, taker, amount);
     }
 
-    //sorting accounts by ID to prevent dead lock
+    /* sorting accounts by ID to prevent dead lock */
     private TreeSet<Account> sortAccountsInLockingOrder(Account giver, Account taker) {
         TreeSet<Account> accounts = new TreeSet<>(new ByIdAccountsComparator());
         boolean added1 = accounts.add(giver);
