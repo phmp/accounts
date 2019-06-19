@@ -10,3 +10,4 @@ guice - CDI
 restassured - rest api tests (integration)
 
 testNG - unit and integration tests (also for checking concurrency)
+

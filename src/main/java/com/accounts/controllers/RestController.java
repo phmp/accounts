@@ -1,6 +1,6 @@
 package com.accounts.controllers;
 
-import com.accounts.storage.IncorrectRequstedAccountIdException;
+import com.accounts.storage.IncorrectRequestedDataException;
 import com.accounts.transfer.TransferFailureException;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
@@ -25,7 +25,7 @@ public class RestController {
             get("/:id/new/:amount", router::createAccountRoute, gson::toJson);
             get("/:from/transfer/:to/:amount", router::transferRoute, gson::toJson);
         });
-        exception(IncorrectRequstedAccountIdException.class, router::wrongIdRoute);
+        exception(IncorrectRequestedDataException.class, router::wrongIdRoute);
         exception(TransferFailureException.class, router::transferErrorRoute);
     }
 

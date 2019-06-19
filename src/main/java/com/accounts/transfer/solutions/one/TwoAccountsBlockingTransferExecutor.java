@@ -1,7 +1,7 @@
 package com.accounts.transfer.solutions.one;
 
 import com.accounts.model.Account;
-import com.accounts.storage.IncorrectRequstedAccountIdException;
+import com.accounts.storage.IncorrectRequestedDataException;
 import com.accounts.transfer.AccountValidator;
 import com.accounts.transfer.TransferExecutor;
 import com.accounts.transfer.TransferFailureException;
@@ -28,11 +28,22 @@ public class TwoAccountsBlockingTransferExecutor implements TransferExecutor {
         synchronized (accounts.pollFirst()){
             synchronized (accounts.pollFirst()){
                 validator.checkIfGiverHasEnoughMoney(giver, amount);
-                giver.subtractAmount(amount);
-                taker.addAmount(amount);
+                transfer(giver, taker, amount);
             }
         }
         log.info("from: {} to: {} money to transfer: {}, transfer SUCCESS", giver, taker, amount);
+    }
+
+    private void transfer(Account giver, Account taker, BigInteger amount) {
+        BigInteger giverState = giver.getAmount();
+        BigInteger takerState = taker.getAmount();
+        try {
+            giver.subtractAmount(amount);
+            taker.addAmount(amount);
+        }catch (Exception e){ //rollback changes just in case
+            giver.setAmount(giverState);
+            taker.setAmount(takerState);
+        }
     }
 
     /* sorting accounts by ID to prevent dead lock */
@@ -40,8 +51,9 @@ public class TwoAccountsBlockingTransferExecutor implements TransferExecutor {
         TreeSet<Account> accounts = new TreeSet<>(new ByIdAccountsComparator());
         boolean added1 = accounts.add(giver);
         boolean added2 = accounts.add(taker);
-        if (!added1 || !added2){
-            throw new IncorrectRequstedAccountIdException("Self transactions are not allowed");
+        boolean anyIsNotAdded = !added1 || !added2;
+        if (anyIsNotAdded){
+            throw new IncorrectRequestedDataException("Self transactions are not allowed");
         }
         return accounts;
     }

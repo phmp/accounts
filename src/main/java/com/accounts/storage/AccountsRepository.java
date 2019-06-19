@@ -21,7 +21,7 @@ public class AccountsRepository {
     public Account get(String id) {
         Account account = accounts.get(id);
         if (account == null) {
-            throw new IncorrectRequstedAccountIdException("Account " + id + " does not exist.");
+            throw new IncorrectRequestedDataException("Account " + id + " does not exist.");
         } else {
             return account;
         }
@@ -30,7 +30,7 @@ public class AccountsRepository {
     public void add(String id, BigInteger amount) {
         Account old = accounts.putIfAbsent(id, new Account(id, amount));
         if (old != null) {
-            throw new IncorrectRequstedAccountIdException("Account " + id + " already exists.");
+            throw new IncorrectRequestedDataException("Account " + id + " already exists.");
         }
     }
 }

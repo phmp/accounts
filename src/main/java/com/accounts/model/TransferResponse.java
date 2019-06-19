@@ -5,11 +5,11 @@ public class TransferResponse {
     private Boolean success;
     private String errorDetails;
 
-    public static TransferResponse failedTranser(String errorDetails){
+    public static TransferResponse failedTransfer(String errorDetails){
         return new TransferResponse(errorDetails);
     }
 
-    public static TransferResponse successedTranser(){
+    public static TransferResponse successfulTransfer(){
         return new TransferResponse();
     }
 

@@ -54,7 +54,7 @@ public class RestRouter {
         String to = req.params(":to");
         String amount = req.params(":amount");
         manager.transfer(from, to, new BigInteger(amount));
-        return TransferResponse.successedTranser();
+        return TransferResponse.successfulTransfer();
     }
 
     public void wrongIdRoute(Exception exception, Request request, Response response) {
@@ -66,6 +66,6 @@ public class RestRouter {
     public void transferErrorRoute(Exception exception, Request request, Response response) {
         response.status(500);
         response.type("application/json");
-        response.body(gson.toJson(TransferResponse.failedTranser(exception.getMessage())));
+        response.body(gson.toJson(TransferResponse.failedTransfer(exception.getMessage())));
     }
 }
