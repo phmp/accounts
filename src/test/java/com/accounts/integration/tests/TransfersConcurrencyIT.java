@@ -8,21 +8,25 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
-public class TranfersConcurrencyIT extends AccountsApplicationRunner{
+public class TransfersConcurrencyIT extends AccountsApplicationRunner{
+
+    private long before;
 
     @BeforeClass(dependsOnMethods = "startApp")
     public void createAccount() {
         when().get("/accounts/0/new/1000");
         when().get("/accounts/1/new/1000");
+        when().get("/accounts/2/new/1000");
         checkAccounts();
+        before = System.currentTimeMillis();
     }
 
     private final AtomicInteger counter = new AtomicInteger(1);
 
-    @Test(invocationCount = 200, threadPoolSize = 20)
+    @Test(invocationCount = 900, threadPoolSize = 25)
     public void oneTransfer() {
-        int from = this.counter.incrementAndGet()%2;
-        int to = (from+1)%2;
+        int from = this.counter.incrementAndGet()%3;
+        int to = (from+1)%3;
 
         when()
                 .get("/accounts/{from}/transfer/{to}/10", from, to)
@@ -35,6 +39,8 @@ public class TranfersConcurrencyIT extends AccountsApplicationRunner{
     public void checkAccounts(){
         checkIfAccountIsCorrect("0");
         checkIfAccountIsCorrect("1");
+        checkIfAccountIsCorrect("2");
+        System.out.println("RESULT " + (System.currentTimeMillis()-before));
     }
 
     private void checkIfAccountIsCorrect(String id) {

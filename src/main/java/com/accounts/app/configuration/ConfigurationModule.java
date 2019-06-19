@@ -12,8 +12,8 @@ public class ConfigurationModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(TransferExecutor.class).to(TwoAccountsBlockingTransferExecutor.class); // solution one is correct
-//        bind(TransferExecutor.class).to(AmountBlockingTransferExecutor.class); // needs improvements sometimes errors occur
+        bind(TransferExecutor.class).to(TwoAccountsBlockingTransferExecutor.class); //solution one
+//        bind(TransferExecutor.class).to(AmountBlockingTransferExecutor.class); //solution two
     }
 
     @Provides

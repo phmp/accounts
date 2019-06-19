@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 
-public class TranfersIT extends AccountsApplicationRunner{
+public class TransfersIT extends AccountsApplicationRunner{
 
     @BeforeClass(dependsOnMethods = "startApp")
     public void createAccount() {
@@ -53,6 +53,14 @@ public class TranfersIT extends AccountsApplicationRunner{
     public void transferToTheSameAccount() {
         when()
                 .get("/accounts/T1/transfer/T1/10")
+        .then()
+                .statusCode(400);
+    }
+
+    @Test
+    public void transferNegativeAmount() {
+        when()
+                .get("/accounts/T1/transfer/T2/-10")
         .then()
                 .statusCode(400);
     }
