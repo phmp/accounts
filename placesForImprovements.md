@@ -9,4 +9,5 @@ I've decided to list them to show that I am aware about them.
 4. Wrap BigInteger into Ammount class, to allow for easy change between data types.
 5. Analyze with implementation of TransferExecutor is quicker and more robust
 6. Add handling unexpected errors during transactions.
-7. And much more :)
+7. Configure pom to run integration tests separately in "verify" phase.
+8. And much more :)
