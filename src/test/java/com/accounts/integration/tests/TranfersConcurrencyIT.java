@@ -17,13 +17,12 @@ public class TranfersConcurrencyIT extends AccountsApplicationRunner{
         checkAccounts();
     }
 
-    private final AtomicInteger firstCounter = new AtomicInteger(1);
-    private final AtomicInteger secondCounter = new AtomicInteger(2);
+    private final AtomicInteger counter = new AtomicInteger(1);
 
-    @Test(invocationCount = 300, threadPoolSize = 10)
+    @Test(invocationCount = 200, threadPoolSize = 20)
     public void oneTransfer() {
-        int from = this.firstCounter.incrementAndGet()%2;
-        int to = this.secondCounter.incrementAndGet()%2;
+        int from = this.counter.incrementAndGet()%2;
+        int to = (from+1)%2;
 
         when()
                 .get("/accounts/{from}/transfer/{to}/10", from, to)

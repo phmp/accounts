@@ -40,9 +40,10 @@ public class TwoAccountsBlockingTransferExecutor implements TransferExecutor {
         try {
             giver.subtractAmount(amount);
             taker.addAmount(amount);
-        }catch (Exception e){ //rollback changes just in case
+        }catch (Exception e){ //rollback changes
             giver.setAmount(giverState);
             taker.setAmount(takerState);
+            throw new TransferFailureException("from: {} to: {} money to transfer: {}, transfer FAILED");
         }
     }
 
