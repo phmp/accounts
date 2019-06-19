@@ -2,6 +2,7 @@ package com.accounts.transfer;
 
 import com.accounts.model.Account;
 import com.accounts.storage.AccountsRepository;
+import com.accounts.transfer.validation.TransferRequestValidator;
 import com.google.inject.Inject;
 
 import java.math.BigInteger;

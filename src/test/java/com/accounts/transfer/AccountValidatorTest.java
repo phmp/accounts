@@ -1,6 +1,7 @@
 package com.accounts.transfer;
 
 import com.accounts.model.Account;
+import com.accounts.transfer.validation.AccountValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

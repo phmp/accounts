@@ -3,6 +3,7 @@ package com.accounts.transfer;
 import com.accounts.model.Account;
 import com.accounts.storage.AccountsRepository;
 import com.accounts.storage.IncorrectRequestedDataException;
+import com.accounts.transfer.validation.TransferRequestValidator;
 import org.mockito.Mockito;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
