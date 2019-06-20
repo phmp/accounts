@@ -10,15 +10,12 @@ import static org.hamcrest.Matchers.equalTo;
 
 public class TransfersConcurrencyIT extends AccountsApplicationRunner{
 
-    private long before;
-
     @BeforeClass(dependsOnMethods = "startApp")
     public void createAccount() {
         when().get("/accounts/0/new/1000");
         when().get("/accounts/1/new/1000");
         when().get("/accounts/2/new/1000");
         checkAccounts();
-        before = System.currentTimeMillis();
     }
 
     private final AtomicInteger counter = new AtomicInteger(1);
@@ -36,11 +33,14 @@ public class TransfersConcurrencyIT extends AccountsApplicationRunner{
     }
 
     @Test(dependsOnMethods = "oneTransfer", alwaysRun = true)
-    public void checkAccounts(){
+    public void allAccountsShouldHaveTheSameState(){
+        checkAccounts();
+    }
+
+    private void checkAccounts() {
         checkIfAccountIsCorrect("0");
         checkIfAccountIsCorrect("1");
         checkIfAccountIsCorrect("2");
-        System.out.println("RESULT " + (System.currentTimeMillis()-before));
     }
 
     private void checkIfAccountIsCorrect(String id) {
