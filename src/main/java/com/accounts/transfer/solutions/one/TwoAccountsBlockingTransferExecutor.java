@@ -2,9 +2,9 @@ package com.accounts.transfer.solutions.one;
 
 import com.accounts.model.Account;
 import com.accounts.storage.IncorrectRequestedDataException;
-import com.accounts.transfer.validation.AccountValidator;
 import com.accounts.transfer.TransferExecutor;
 import com.accounts.transfer.TransferFailureException;
+import com.accounts.transfer.validation.AccountValidator;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,7 +22,7 @@ public class TwoAccountsBlockingTransferExecutor implements TransferExecutor {
     }
 
     @Override
-    public void execute(Account giver, Account taker, BigInteger amount) throws TransferFailureException {
+    public void execute(Account giver, Account taker, BigInteger amount) {
         TreeSet<Account> accounts = sortAccountsInLockingOrder(giver, taker);
         log.info("from: {} to: {} money to transfer: {}, transfer STARTED", giver, taker, amount);
         synchronized (accounts.pollFirst()){

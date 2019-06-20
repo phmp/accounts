@@ -1,9 +1,9 @@
 package com.accounts.transfer.solutions.two;
 
 import com.accounts.model.Account;
-import com.accounts.transfer.validation.AccountValidator;
 import com.accounts.transfer.TransferExecutor;
 import com.accounts.transfer.TransferFailureException;
+import com.accounts.transfer.validation.AccountValidator;
 import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 

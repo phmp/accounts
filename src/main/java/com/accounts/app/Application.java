@@ -5,8 +5,6 @@ import com.accounts.controllers.RestController;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
-import static spark.Spark.awaitInitialization;
-
 public class Application {
 
     Injector injector;
