@@ -1,4 +1,4 @@
-package com.accounts.resopnse;
+package com.accounts.model;
 
 public class ErrorResponse {
 
